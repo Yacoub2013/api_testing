@@ -1,4 +1,4 @@
-from http import HTTPStatus
+from http import HTTPStatus, HTTPMethod
 import requests
 from utils.assertions_api import Assert
 from api.client import Client
@@ -49,3 +49,30 @@ def test_create():
     assert res.status_code == HTTPStatus.CREATED
     assert api.delete_user(res.json()['id']).status_code == HTTPStatus.NO_CONTENT
 
+
+def test_post():
+    res = api.reg("eve.holt@reqres.in", "123")
+    res_body = res.json()
+    assert res.status_code == HTTPStatus.OK
+    example = {
+
+        "id": 4,
+        "token": "QpwL5tke4Pnpja7X4"
+    }
+    assert example == res_body
+
+    assert res_body["token"] == 'QpwL5tke4Pnpja7X4'
+    assert res_body["id"] == 4
+
+
+def test_reg_no():
+    res = api.reg("eve.holt@reqres.in", "")
+    res_body = res.json()
+    assert res.status_code == HTTPStatus.BAD_REQUEST
+    example = {
+
+        "error": "Missing password"
+    }
+
+    assert example == res_body
+    assert res_body["error"] == 'Missing password'

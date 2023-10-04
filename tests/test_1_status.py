@@ -8,4 +8,12 @@ def test_1_status():
     # assert response.status_code == 200 #парсим ответ
     assert response.status_code == HTTPStatus.OK
 
+# def test_2_register():
+#     url = 'https://reqres.in/api/ririster'
+#     res_post = requests.get(url)
+#     res_post.
+
+
+
+
 
